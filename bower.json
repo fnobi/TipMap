@@ -1,0 +1,8 @@
+{
+  "name": "TipMap",
+  "version": "0.0.0",
+  "main": "js/TipMap.js",
+  "devDependencies": {
+    "jquery": "*"
+  }
+}
