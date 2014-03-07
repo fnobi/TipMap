@@ -1,0 +1,27 @@
+{
+  "name": "tipmap-spriter",
+  "description": "TipMap image spriter.",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "bin": {
+    "tipmap-spriter": "bin/tipmap-spriter"
+  },
+  "author": "Fujisawa Shin",
+  "license": "BSD",
+  "dependencies": {
+    "optimist": "~0.5.2",
+    "colors": "~0.6.1",
+    "imagemagick": "~0.1.3",
+    "async": "~0.2.10",
+    "ejs": "~0.8.5"
+  },
+  "devDependencies": {
+    "chai": "~1.6.1",
+    "mocha": "~1.11.0",
+    "grunt": "~0.4.1",
+    "grunt-release": "~0.5.1"
+  }
+}
