@@ -43,6 +43,46 @@
             });
             $inner.append(img);
         }
+
+        var offsetX = 0;
+        var offsetY = 0;
+        function posit () {
+            $inner.css({
+                left: offsetX + 'px',
+                top: offsetY + 'px'
+            });
+        }
+
+        var flag = false;
+        var cursor = [];
+        $el.on('mousedown touchstart', function (e) {
+            flag = true;
+            var finger = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+            cursor = [finger.pageX, finger.pageY];
+        });
+        
+        $el.on('mousemove touchmove', function (e) {
+            if (!flag) {
+                return;
+            }
+            e.preventDefault();
+
+            var finger = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+            var x = finger.pageX;
+            var y = finger.pageY;
+
+            offsetX += (x - cursor[0]);
+            offsetY += (y - cursor[1]);
+
+            posit();
+
+            cursor = [x, y];
+        });
+
+        $el.on('mouseup touochend', function () {
+            flag = false;
+            cursor = [];
+        });
     };
 
     exports.TipMap = TipMap;
