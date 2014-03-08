@@ -20,7 +20,7 @@ var TipmapSprite = function (opts, callback) {
     var imgRootPath = path.join(dest, IMG_DIR);
     var basename = path.basename(filePath);
 
-    var fullWidth, fullHeight, images, template;
+    var fullWidth, fullHeight, template;
 
     async.series([function (next) {
         fs.exists(filePath, function (exists) {
@@ -59,22 +59,6 @@ var TipmapSprite = function (opts, callback) {
             path.join(imgRootPath, basename)
         ], next);
     }, function (next) {
-        var imageCount = Math.ceil(
-            fullWidth / cropWidth
-        ) * Math.ceil(
-            fullHeight / cropHeight
-        );
-
-        var ext = path.extname(filePath);
-        var base = path.basename(filePath, ext);
-
-        images = [];
-        for (var i = 0; i < imageCount; i++) {
-            images.push(path.join(IMG_DIR, base + '-' + i + ext));
-        }
-
-        next();
-    }, function (next) {
         fs.readFile(INDEX_EJS_PATH, 'utf8', function (err, body) {
             if (err) {
                 return next(err);
@@ -84,9 +68,11 @@ var TipmapSprite = function (opts, callback) {
         });
     }, function (next) {
         var str = ejs.render(template, {
-            images: images,
+            imagePath: path.join(IMG_DIR, basename),
             fullWidth: fullWidth,
-            fullHeight: fullHeight
+            fullHeight: fullHeight,
+            cropWidth: cropWidth,
+            cropHeight: cropHeight
         });
         var destPath = path.join(dest, 'index.html');
         fs.writeFile(destPath, str, { encoding: 'utf8'}, next);
